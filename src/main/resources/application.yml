@@ -1,0 +1,27 @@
+server:
+  port: 8071
+  servlet:
+    context-path: /aws-login-rest
+
+spring:
+  application:
+    name: aws-login-rest
+  
+eureka:
+  client:
+    register-with-eureka: true     
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://aws-ms-test-service.mytest.com:8762/eureka
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+    hostname: aws-ms-test-service.mytest.com
+    
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 9000000
+        readTimeout: 9000000
